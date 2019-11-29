@@ -1,0 +1,135 @@
+body {
+  height: 100%;
+}
+
+label {
+  font-weight: 700;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+#app{
+  height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+}
+
+div:focus{
+  outline: none;
+ }
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+
+// card边距
+.ivu-card{
+  margin-bottom: 15px;
+}
+/**iviewtable 中的滚动条*/
+.ivu-table ::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #fff;
+}
+
+/* 自制talbe滚动条*/
+.htmlScroll ::-webkit-scrollbar {
+  width: 5px !important;
+  height: 5px !important;
+  background-color: #fff;
+}
+/* 全部滚动条*/
+::-webkit-scrollbar{
+    width: 5px;
+    height: 8px;
+    background-color: #fff;
+}
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #fff;
+}
+ 
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #dcdee2;
+}
+
+// iview样式修改
+@media (max-width: 768px){
+  .ivu-modal-fullscreen{width:100%!important;margin:0}
+}
+.modal-body{
+  max-height: calc(100vh - 250px);
+  overflow: auto;
+}
+.ivu-modal-fullscreen .ivu-modal-body{
+   max-height:100vh;
+}
+
+/*拖动样式 */
+.handle {
+  cursor: move;
+}
+
+/**文字纵向排列 */
+.direction-text {
+  width: 20px;
+  margin: 0 auto;
+  line-height: 24px;
+}
+
+.titleColor {
+  // 标题类颜色
+  color: #17233d !important;
+}
+
+.subColor {
+  // 描述类颜色
+  color: #808695 !important;
+}
+.marginBottom {
+  margin-bottom: 10px;
+}
+.marginLeft{
+  margin-left: 5px;
+}

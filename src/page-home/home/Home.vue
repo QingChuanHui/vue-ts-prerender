@@ -13,6 +13,9 @@ import HelloWorld from '@/components/HelloWorld.vue'// @ is an alias to /src
   },
 })
 export default class Home extends Vue {
+  demo: any = { name : '' }
+  value = ''
+  count = 0
   @Prop(Number) readonly propA: number | undefined
   @Prop({ default: 'default value' }) readonly propB!: string
   @Prop([String, Boolean]) readonly propC: string | boolean | undefined
@@ -26,11 +29,6 @@ export default class Home extends Vue {
 
   @Watch('person', { immediate: true, deep: true })
   onPersonChanged1(val: any, oldVal: any) {}
-
-  demo: any = { name : '' }
-  value:String=''
-  count = 0
-
   get newName() { // computed
     return this.demo.name
   }
@@ -67,8 +65,8 @@ export default class Home extends Vue {
     })
   }
 
-  @Ref() readonly anotherComponent!: any
-  @Ref('aButton') readonly button!: HTMLButtonElement
+  // @Ref() readonly anotherComponent!: any
+  // @Ref('aButton') readonly button!: HTMLButtonElement
 
   mounted() {
   }

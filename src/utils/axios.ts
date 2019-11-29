@@ -1,41 +1,23 @@
 import axios from 'axios'
 import store from '../store'
 import { getToken, removeToken } from '@/utils/auth'
-// import qs from 'qs'
+import qs from 'qs'
+import { Message } from 'view-design'
 // 创建axios实例
 const service = axios.create({
   timeout: 15000 // 请求超时时间
 })
-const getApi = () => {
-  // console.log(process.env.NODE_ENV)
-  if (process.env.NODE_ENV === 'production') { // 发布版本
-    if (window.location.host.indexOf('t') >= 0) {
-      return process.env.VUE_APP_TESTAPI
-    } else {
-      return process.env.VUE_APP_BASEAPI
-    }
-  } else {
-    return process.env.VUE_APP_TESTAPI
-    // return process.env.VUE_APP_BASEAPI
-  }
-}
-const warningModal = (content: string, title: string = '数据提示') => {
-  // Modal.warning({
-  //   title: title,
-  //   content: content,
-  //   duration: 0,
-  //   scrollable: true,
-  //   closable: true // esc 可以关闭
-  // })
-}
 // request拦截器
 service.interceptors.request.use(config => {
+  if (getToken()) {
+    config.headers.user_id =  getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+  }
   if (config.method === 'post') {
-    // if (!config.data.noQS) { // 保存时不需要通过qs加密
-    //   config.data = qs.stringify(config.data)
-    // } else {
-    //   delete config.data.noQS
-    // }
+    if (!config.data.noQS) { // 保存时不需要通过qs加密
+      config.data = qs.stringify(config.data)
+    } else {
+      delete config.data.noQS
+    }
   }
   return config
 }, error => {
@@ -49,23 +31,12 @@ service.interceptors.response.use(
     const res = response.data
     if (res.code !== 2000) { // 不等于2000是错误异常
       if (res.code === 401) { // token失效需要重新登录
-        // Modal.warning({
-        //   title: '登录',
-        //   content: '登录信息丢失, 请重新登录',
-        //   duration: 0,
-        //   scrollable: true,
-        //   closable: true, // esc 可以关闭
-        //   onOk: () => {
-        //     // this.messageDel()
-        //     removeToken()
-        //     store.commit('SET_TOKEN', '')
-        //     store.commit('SET_UserInfo', {})
-        //     // setTimeout(() => {
-        //     //   window.location.reload()
-        //     // }, 1000)
-        //     store.dispatch('loginModalShow', true)
-        //   }
-        // })
+        removeToken()
+        // Message.warning('登录信息丢失, 请重新登录')
+        // removeToken()
+        // store.commit('SET_TOKEN', '')
+        // store.commit('SET_UserInfo', {})
+        // store.dispatch('loginModalShow', true) // 登录信息丢失弹出登录框
       } else {
         return Promise.reject(res)
       }
@@ -86,11 +57,7 @@ export default {
       if (loading) {
         store.dispatch('loadingShow', true)
       }
-      let urlIP = getApi() + code
-      if (store.getters.token) {
-        urlIP = urlIP + '?access_token=' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
-      }
-      service.post(urlIP, params)
+      service.post(process.env.VUE_APP_BASEAPI + code, params)
         .then(response => {
           if (loading) {
             store.dispatch('loadingShow', false)
@@ -100,14 +67,22 @@ export default {
           if (loading) {
             store.dispatch('loadingShow', false)
           }
-          warningModal(err.message)
+          (Message as any).warning({
+            content: err.message,
+            duration: 2,
+            background: true
+          })
           reject(err)
         })
         .catch((error) => {
           if (loading) {
             store.dispatch('loadingShow', false)
           }
-          warningModal(error.message)
+          (Message as any).error({
+            content: error.message,
+            duration: 2,
+            background: true
+          })
           reject(error)
         })
     })
@@ -118,7 +93,7 @@ export default {
       if (loading) {
         store.dispatch('loadingShow', true)
       }
-      service.get(getApi() + code + '?access_token=' + getToken(), params)
+      service.get(process.env.VUE_APP_BASEAPI + code, params)
         .then(response => {
           if (loading) {
             store.dispatch('loadingShow', false)
@@ -128,14 +103,22 @@ export default {
           if (loading) {
             store.dispatch('loadingShow', false)
           }
-          warningModal(err.message)
+          (Message as any).warning({
+            content: err.message,
+            duration: 2,
+            background: true
+          })
           reject(err)
         })
         .catch((error) => {
           if (loading) {
             store.dispatch('loadingShow', false)
           }
-          warningModal(error.message)
+          (Message as any).error({
+            content: error.message,
+            duration: 2,
+            background: true
+          })
           reject(error)
         })
     })
