@@ -2,35 +2,47 @@
   <div class="information-manage">
     <Form  :label-width="90" class="marginBottom">
       <Row>
-        <i-col :xs="24" :sm="12" :lg="8">
+        <i-col :xs="24" :sm="12" :xl="8">
           <FormItem  label="企业名称：" >
             <i-Input type="text" v-model="formData.enterpriseName" placeholder="请输入企业名称"  style="max-width:400px" clearable>
             </i-Input>
           </FormItem>
         </i-col>
-        <i-col :xs="24" :sm="12" :lg="8">
+        <i-col :xs="24" :sm="12" :xl="8">
           <FormItem  label="片区：" placeholder="请选择片区" >
-            <Select v-model="formData.city"  placeholder="请选择市区" style="max-width:150px" clearable @on-change="selctCounty" >
-              <Option v-for="(value, index) in dataBase.cityData" :value="value" :key="index">{{ value }}</Option>
-            </Select>
-            <Select v-model="formData.county"  placeholder="请选择县区" style="max-width:150px;margin-left:5px;" clearable>
-              <Option v-for="(value, index) in dataBase.countyData" :value="value" :key="index">{{ value }}</Option>
-            </Select>
+            <Row>
+              <i-col :xs="24" :sm="12">
+                <Select v-model="formData.city"  placeholder="请选择市区" clearable @on-change="selctCounty" >
+                  <Option v-for="(value, index) in dataBase.cityData" :value="value" :key="index">{{ value }}</Option>
+                </Select>
+              </i-col>
+              <i-col :xs="24" :sm="12">
+                <Select v-model="formData.county"  placeholder="请选择县区"  clearable>
+                  <Option v-for="(value, index) in dataBase.countyData" :value="value" :key="index">{{ value }}</Option>
+                </Select>
+              </i-col>
+            </Row>
           </FormItem>
         </i-col>
-        <i-col :xs="24" :sm="12" :lg="8">
+        <i-col :xs="24" :sm="12" :xl="8">
           <FormItem  label="投保时间：" >
-            <DatePicker type="date" v-model="formData.startUpDateStart" split-panels placeholder="请选择开始时间" style="max-width:150px"></DatePicker>&nbsp;至&nbsp;
-            <DatePicker type="date" v-model="formData.startUpDateEnd" split-panels placeholder="请选择结束时间" style="max-width:150px"></DatePicker>
+            <Row>
+              <i-col :xs="24" :sm="12">
+                <DatePicker type="date" v-model="formData.startUpDateStart" split-panels placeholder="请选择开始时间" ></DatePicker>
+              </i-col>
+              <i-col :xs="24" :sm="12">
+                <DatePicker type="date" v-model="formData.startUpDateEnd" split-panels placeholder="请选择结束时间" ></DatePicker>
+              </i-col>
+            </Row>
           </FormItem>
         </i-col>
-        <!-- <i-col :xs="24" :sm="12" :lg="8">
+        <!-- <i-col :xs="24" :sm="12" :xl="8">
           <FormItem  label="保单号：" >
             <i-Input type="text" v-model="formData.policyNo"  placeholder="请输入保单号" style="max-width:400px" clearable>
             </i-Input>
           </FormItem>
         </i-col>
-        <i-col :xs="24" :sm="12" :lg="8">
+        <i-col :xs="24" :sm="12" :xl="8">
           <FormItem  label="行业类型：" >
             <Select v-model="formData.bigClass"  placeholder="请选择大类" style="max-width:150px" clearable @on-change="selctBigClass">
               <Option v-for="(value, index) in dataBase.bigClassData" :value="value" :key="index">{{ value }}</Option>
@@ -40,27 +52,27 @@
             </Select>
           </FormItem>
         </i-col> -->
-        <i-col :xs="24" :sm="12" :lg="8">
+        <i-col :xs="24" :sm="12" :xl="8">
           <FormItem  label="保险公司：" >
             <Select v-model="formData.insuranceCompany"  placeholder="请选择保险公司" style="max-width:400px" clearable>
               <Option v-for="(value, index) in dataBase.insuranceCompanyData" :value="value" :key="index">{{ value }}</Option>
             </Select>
           </FormItem>
         </i-col>
-        <!-- <i-col :xs="24" :sm="12" :lg="8">
+        <!-- <i-col :xs="24" :sm="12" :xl="8">
           <FormItem  label="投保限额：" >
             <i-Input type="text" v-model="formData.insuredStart"  placeholder="起始限额" style="max-width:150px" clearable></i-Input>&nbsp;至&nbsp;
             <i-Input type="text" v-model="formData.insuredEnd"  placeholder="终止限额" style="max-width:150px" clearable></i-Input>
           </FormItem>
         </i-col>
-        <i-col :xs="24" :sm="12" :lg="8">
+        <i-col :xs="24" :sm="12" :xl="8">
           <FormItem  label="风险等级：" >
             <Select v-model="formData.riskLevel"  placeholder="请选择风险等级" style="max-width:400px" clearable >
               <Option v-for="(value, index) in dataBase.riskLevelData" :value="value" :key="index">{{ value }}</Option>
             </Select>
           </FormItem>
         </i-col> -->
-        <i-col :xs="24" :sm="12" :lg="8">
+        <i-col :xs="24" :sm="12" :xl="8">
           <FormItem  label="经纪公司：" >
             <Select v-model="formData.economicCompany"  placeholder="请选择经纪公司" style="max-width:400px" clearable>
               <Option v-for="(value, index) in dataBase.economicCompanyData" :value="value" :key="index">{{ value }}</Option>
